@@ -4,9 +4,15 @@ import ImageCard from "./ImageCard";
 
 interface ImageGalleryProps {
   images: Array<{ url: string; id: string }>;
+  isAdmin?: boolean;
+  onDeleteImage?: (id: string) => void;
 }
 
-const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
+const ImageGallery: React.FC<ImageGalleryProps> = ({ 
+  images, 
+  isAdmin = false,
+  onDeleteImage 
+}) => {
   return (
     <div className="w-full">
       {images.length === 0 ? (
@@ -18,7 +24,12 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {images.map((image) => (
-            <ImageCard key={image.id} image={image} />
+            <ImageCard 
+              key={image.id} 
+              image={image} 
+              isAdmin={isAdmin}
+              onDelete={onDeleteImage}
+            />
           ))}
         </div>
       )}
